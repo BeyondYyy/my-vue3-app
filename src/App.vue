@@ -1,5 +1,10 @@
-<script setup lang="ts">
+<script lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'App',
+})
 </script>
 
 <template>
@@ -11,7 +16,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <router-view></router-view>
 </template>
 
 <style scoped>
