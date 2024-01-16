@@ -146,6 +146,7 @@ module.exports = {
     'no-extra-boolean-cast': 'warn',
     'no-case-declarations': 'warn',
     'no-async-promise-executor': 'warn',
+    // 关闭组件命名规则
     'vue/multi-word-component-names': 'off',
   },
   globals: {
