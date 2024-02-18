@@ -20,6 +20,15 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/components/HelloWorld.vue'),
   },
+  {
+    path: '/test',
+    name: 'Test',
+    meta: {
+      title: '测试',
+      keepAlive: true,
+    },
+    component: () => import('@/pages/views/test.vue'),
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),
