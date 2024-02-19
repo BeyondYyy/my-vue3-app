@@ -4,9 +4,15 @@
   </button>
   <button style="background-color: #99f" @click="state.count++">{{ state.count }}</button>
   <button style="background-color: #f99" @click="_user.age++">{{ _user.age }}</button>
+  <p>Has published books:</p>
+  <span>{{ author.books.length > 0 ? 'yes' : 'no' }}</span>
+  <br />
+  <span> {{ publishedBooksMessage }}</span>
+  <div>{{ fullName }}</div>
 </template>
+
 <script setup lang="ts">
-import { ref, reactive, proxyRefs, onMounted } from 'vue'
+import { ref, reactive, proxyRefs, onMounted, computed } from 'vue'
 
 const count = ref(0)
 
@@ -32,9 +38,38 @@ function increment() {
   obj.value.a.count++
 }
 
+// computed 相关
+
+const author = reactive({
+  name: 'yuan',
+  books: ['vue 1', 'vue 2', 'vue 3'],
+})
+
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'yes' : 'no'
+})
+
+const firstName = ref('yuan')
+const lastName = ref('coma')
+
+const fullName = computed({
+  get() {
+    console.log('get computed')
+
+    return firstName.value + ' ' + lastName.value
+  },
+  set(newvalue) {
+    ;[firstName.value, lastName.value] = newvalue.split(' ')
+    console.log('set computed')
+  },
+})
+
+fullName.value = 'qi tina'
+
 onMounted(() => {
   console.log(count.value, 'onMounted - count')
   console.log(user.age.value, 'onMounted - user - age')
   console.log(_user.age, 'onMounted - _user - age')
+  console.log(publishedBooksMessage.value, 'onMounted - publishedBooksMessage')
 })
 </script>
