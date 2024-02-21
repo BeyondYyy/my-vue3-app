@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
       title: '测试',
       keepAlive: true,
     },
-    component: () => import('@/pages/views/test.vue'),
+    component: () => import('@/pages/views/test/test.vue'),
   },
 ]
 const router = createRouter({

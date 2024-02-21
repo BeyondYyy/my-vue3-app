@@ -4,15 +4,19 @@
   </button>
   <button style="background-color: #99f" @click="state.count++">{{ state.count }}</button>
   <button style="background-color: #f99" @click="_user.age++">{{ _user.age }}</button>
-  <p>Has published books:</p>
-  <span>{{ author.books.length > 0 ? 'yes' : 'no' }}</span>
+  <div class="div-box">
+    <p :class="{ active: isActive }">Has published books:</p>
+    <span>{{ author.books.length > 0 ? 'yes' : 'no' }}</span>
+  </div>
   <br />
   <span> {{ publishedBooksMessage }}</span>
   <div>{{ fullName }}</div>
+  <childCompontent class="transfer-child" />
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, proxyRefs, onMounted, computed } from 'vue'
+import childCompontent from '@/pages/views/test/childComponent.vue'
 
 const count = ref(0)
 
@@ -66,6 +70,9 @@ const fullName = computed({
 
 fullName.value = 'qi tina'
 
+// style 与 class
+const isActive = ref(true)
+
 onMounted(() => {
   console.log(count.value, 'onMounted - count')
   console.log(user.age.value, 'onMounted - user - age')
@@ -73,3 +80,15 @@ onMounted(() => {
   console.log(publishedBooksMessage.value, 'onMounted - publishedBooksMessage')
 })
 </script>
+<style lang="scss">
+.div-box {
+  width: 100%;
+  background-color: #99f;
+  .active {
+    color: #9f9;
+  }
+}
+.transfer-child {
+  color: #9f9 !important;
+}
+</style>
