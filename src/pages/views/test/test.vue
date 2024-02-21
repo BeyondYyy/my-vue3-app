@@ -11,12 +11,38 @@
   <br />
   <span> {{ publishedBooksMessage }}</span>
   <div>{{ fullName }}</div>
+  <!-- class 透传 -->
   <childCompontent class="transfer-child" />
+  <br />
+  <!-- slot -->
+  <!-- 具名插槽 -->
+  <slot-component>
+    <template #header>
+      <span>传递的内容</span>
+    </template>
+    <template #content>
+      <el-tag type="success">{{ slotData }}</el-tag>
+    </template>
+  </slot-component>
+  <br />
+  <!-- 默认作用域插槽 -->
+  <slot-component v-slot="slotProps"> {{ slotProps.text }} {{ slotProps.count }} </slot-component>
+  <br />
+  <!-- 具名作用域插槽 -->
+  <slot-component>
+    <template #header="headerProps">
+      {{ headerProps }}
+    </template>
+    <template #content="contentProps">
+      {{ contentProps }}
+    </template>
+  </slot-component>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, proxyRefs, onMounted, computed } from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
+import slotComponent from '@/pages/views/test/slotComponent.vue'
 
 const count = ref(0)
 
@@ -72,6 +98,9 @@ fullName.value = 'qi tina'
 
 // style 与 class
 const isActive = ref(true)
+
+// slot
+const slotData = ref(0)
 
 onMounted(() => {
   console.log(count.value, 'onMounted - count')
