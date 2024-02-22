@@ -1,9 +1,13 @@
 <template>
   <p class="poo" v-bind="attrs">{{ con }}</p>
+  <br />
   <span> 未透传 </span>
+  <br />
+  <DeepChildComponent />
 </template>
-<script setup lang="ts">
+<script setup>
 import { ref, useAttrs } from 'vue'
+import DeepChildComponent from '@/pages/views/test/deepChildComponent.vue'
 
 const con = ref('Child')
 const attrs = useAttrs()
