@@ -29,21 +29,20 @@
   <!-- <slot-component v-slot="slotProps"> {{ slotProps.text }} {{ slotProps.count }} </slot-component> -->
   <br />
   <!-- 具名作用域插槽 -->
-  <!-- <slot-component>
+  <slot-component>
     <template #header="headerProps">
       {{ headerProps }}
     </template>
     <template #content="contentProps">
       {{ contentProps }}
     </template>
-  </slot-component> -->
+  </slot-component>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, proxyRefs, onMounted, computed, provide, readonly } from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
 import slotComponent from '@/pages/views/test/slotComponent.vue'
-
 const count = ref(0)
 
 const user = {

@@ -17,9 +17,9 @@
   <el-button class="el-button">
     <slot name="content">默认内容</slot>
   </el-button>
-  <div>注入: {{ provideText }}</div>
+  <!-- <div>注入: {{ provideText }}</div> -->
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 const slotText = 'slot text'

@@ -5,7 +5,7 @@
   <br />
   <DeepChildComponent />
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, useAttrs } from 'vue'
 import DeepChildComponent from '@/pages/views/test/deepChildComponent.vue'
 
