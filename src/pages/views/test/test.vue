@@ -37,12 +37,26 @@
       {{ contentProps }}
     </template>
   </slot-component>
+  <!-- 异步组件 -->
+  <AsyncComponent />
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, proxyRefs, onMounted, computed, provide, readonly } from 'vue'
+import {
+  ref,
+  reactive,
+  proxyRefs,
+  onMounted,
+  computed,
+  provide,
+  readonly,
+  defineAsyncComponent,
+} from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
 import slotComponent from '@/pages/views/test/slotComponent.vue'
+import LoadingComponent from '@/components/loadingComponent.vue'
+import ErrorComponent from '@/components/errorComponent.vue'
+
 const count = ref(0)
 
 const user = {
@@ -112,6 +126,29 @@ function handleChangeProvideMessage() {
   provideText.value = '修改后的注入的内容'
 }
 
+// 异步组件
+// const AsyncComponent = defineAsyncComponent(() =>
+//   import('@/components/defineAsyncComponent.vue')
+// )
+
+// 加载与错误状态(异步组件)
+const AsyncComponent = defineAsyncComponent({
+  loader: () => import('@/components/defineAsyncComponent.vue'),
+
+  //加载异步组件时使用的组件
+  loadingComponent: LoadingComponent,
+
+  // 展示加载组件前的延迟时间，默认为 200ms
+  delay: 200,
+
+  // 加载失败后展示的组件
+  errorComponent: ErrorComponent,
+
+  // 如果提供了一个 timeout 时间限制，并超时了
+  // 也会显示这里配置的报错组件，默认值是 Infinity
+  timeout: 3000,
+})
+
 // onMounted
 onMounted(() => {
   console.log(count.value, 'onMounted - count')
@@ -120,6 +157,7 @@ onMounted(() => {
   console.log(publishedBooksMessage.value, 'onMounted - publishedBooksMessage')
 })
 </script>
+
 <style lang="scss">
 .div-box {
   width: 100%;
