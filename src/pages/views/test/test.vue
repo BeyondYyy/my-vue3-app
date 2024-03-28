@@ -39,6 +39,8 @@
   </slot-component>
   <!-- 异步组件 -->
   <AsyncComponent />
+  <!-- 组合式函数 -->
+  <div>Mouse position is at: {{ x }}, {{ y }}</div>
 </template>
 
 <script setup lang="ts">
@@ -51,11 +53,13 @@ import {
   provide,
   readonly,
   defineAsyncComponent,
+  onUnmounted,
 } from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
 import slotComponent from '@/pages/views/test/slotComponent.vue'
 import LoadingComponent from '@/components/loadingComponent.vue'
 import ErrorComponent from '@/components/errorComponent.vue'
+import { useMouse } from '@/components/mouse.js'
 
 const count = ref(0)
 
@@ -148,6 +152,20 @@ const AsyncComponent = defineAsyncComponent({
   // 也会显示这里配置的报错组件，默认值是 Infinity
   timeout: 3000,
 })
+
+// 组合式函数
+
+// step 1
+// const x = ref(0);
+// const y = ref(0)
+
+// function updata(event) {
+//   x.value = event.pageX
+//   y.value = event.pageY
+// }
+
+// step 2
+const { x, y } = useMouse()
 
 // onMounted
 onMounted(() => {

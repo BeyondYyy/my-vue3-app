@@ -3,3 +3,5 @@ declare module '*.vue' {
   const Component: DefineComponent
   export default Component
 }
+
+declare module '@/components/mouse.js'
