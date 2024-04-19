@@ -45,6 +45,10 @@
   <!-- 自定义指令 -->
   <div v-color="color">111</div>
   <div v-demo="{ color: '#f99', text: 'hello' }"></div>
+
+  <!-- 插件 -->
+  <h3>{{ $t('greetings.hello') }}</h3>
+  <div>{{ i18n.greetings.hello }}</div>
 </template>
 
 <script setup lang="ts">
@@ -58,14 +62,13 @@ import {
   readonly,
   defineAsyncComponent,
   onUnmounted,
-  createApp,
+  inject,
 } from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
 import slotComponent from '@/pages/views/test/slotComponent.vue'
 import LoadingComponent from '@/components/loadingComponent.vue'
 import ErrorComponent from '@/components/errorComponent.vue'
 import { useMouse } from '@/components/mouse.js'
-import App from '@/App.vue'
 
 const count = ref(0)
 
@@ -172,9 +175,12 @@ const AsyncComponent = defineAsyncComponent({
 
 // step 2
 const { x, y } = useMouse()
-const app = createApp(App)
-// 自定义指令 在main.ts中定义
+
+// 自定义指令 在main.ts 中定义
 const color = ref('#99f')
+
+// 插件 在 main.ts 中定义
+const i18n = inject('i18n')
 
 // onMounted
 onMounted(() => {
