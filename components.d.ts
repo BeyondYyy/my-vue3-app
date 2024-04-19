@@ -7,16 +7,18 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CompA: (typeof import('./src/components/CompA.vue'))['default']
+    CompB: (typeof import('./src/components/CompB.vue'))['default']
     copy: (typeof import('./src/components/loadingComponent copy.vue'))['default']
-    DefineAsyncComponent: typeof import('./src/components/defineAsyncComponent.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElTag: typeof import('element-plus/es')['ElTag']
-    ElText: typeof import('element-plus/es')['ElText']
-    ErrorComponent: typeof import('./src/components/errorComponent.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    LoadingComponent: typeof import('./src/components/loadingComponent.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
+    DefineAsyncComponent: (typeof import('./src/components/defineAsyncComponent.vue'))['default']
+    ElButton: (typeof import('element-plus/es'))['ElButton']
+    ElInput: (typeof import('element-plus/es'))['ElInput']
+    ElTag: (typeof import('element-plus/es'))['ElTag']
+    ElText: (typeof import('element-plus/es'))['ElText']
+    ErrorComponent: (typeof import('./src/components/errorComponent.vue'))['default']
+    HelloWorld: (typeof import('./src/components/HelloWorld.vue'))['default']
+    LoadingComponent: (typeof import('./src/components/loadingComponent.vue'))['default']
+    RouterLink: (typeof import('vue-router'))['RouterLink']
+    RouterView: (typeof import('vue-router'))['RouterView']
   }
 }

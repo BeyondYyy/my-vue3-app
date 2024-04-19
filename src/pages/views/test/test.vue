@@ -77,6 +77,16 @@
       {{ item.msg }}
     </li>
   </TransitionGroup>
+
+  <!-- 内置组件 KeepAlive -->
+  <div class="demo">
+    <label><input v-model="current" type="radio" :value="CompA" /> A</label>
+    <label><input v-model="current" type="radio" :value="CompB" /> B</label>
+    <br />
+    <KeepAlive>
+      <component :is="current"></component>
+    </KeepAlive>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -91,6 +101,7 @@ import {
   defineAsyncComponent,
   onUnmounted,
   inject,
+  shallowRef,
 } from 'vue'
 import childCompontent from '@/pages/views/test/childComponent.vue'
 import slotComponent from '@/pages/views/test/slotComponent.vue'
@@ -98,7 +109,8 @@ import LoadingComponent from '@/components/loadingComponent.vue'
 import ErrorComponent from '@/components/errorComponent.vue'
 import { useMouse } from '@/components/mouse.js'
 import gsap from 'gsap'
-
+import CompA from '@/components/CompA.vue'
+import CompB from '@/components/CompB.vue'
 const count = ref(0)
 
 const user = {
@@ -253,6 +265,9 @@ function onLeave(el, done) {
     onComplete: done,
   })
 }
+
+// KeepAlive
+const current = shallowRef(CompA)
 
 // onMounted
 onMounted(() => {
