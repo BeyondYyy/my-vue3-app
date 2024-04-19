@@ -63,6 +63,20 @@
       <button v-else-if="docState === 'editing'" @click="docState = 'saved'">Cancel</button>
     </Transition>
   </div>
+  <br />
+  <!-- 内置组件 TransitionGroup -->
+  <input v-model="query" style="margin-top: 20px" />
+  <TransitionGroup
+    tag="ul"
+    :css="false"
+    @before-enter="onBeforeEnter"
+    @enter="onEnter"
+    @leave="onLeave"
+  >
+    <li v-for="(item, index) in computedList" :key="item.msg" :data-index="index">
+      {{ item.msg }}
+    </li>
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">
@@ -83,6 +97,7 @@ import slotComponent from '@/pages/views/test/slotComponent.vue'
 import LoadingComponent from '@/components/loadingComponent.vue'
 import ErrorComponent from '@/components/errorComponent.vue'
 import { useMouse } from '@/components/mouse.js'
+import gsap from 'gsap'
 
 const count = ref(0)
 
@@ -197,8 +212,47 @@ const color = ref('#99f')
 const i18n = inject('i18n')
 
 // 内置组件使用
+// Transition
 const show = ref(true)
 const docState = ref('saved')
+
+// TransitionGroup
+const list = [
+  { msg: 'Bruce Lee' },
+  { msg: 'Jackie Chan' },
+  { msg: 'Chuck Norris' },
+  { msg: 'Jet Li' },
+  { msg: 'Kung Fury' },
+]
+
+const query = ref('')
+
+const computedList = computed(() => {
+  return list.filter((item) => item.msg.toLowerCase().includes(query.value))
+})
+
+function onBeforeEnter(el) {
+  el.style.opacity = 0
+  el.style.height = 0
+}
+
+function onEnter(el, done) {
+  gsap.to(el, {
+    opacity: 1,
+    height: '1.6em',
+    delay: el.dataset.index * 0.15,
+    onComplete: done,
+  })
+}
+
+function onLeave(el, done) {
+  gsap.to(el, {
+    opacity: 0,
+    height: 0,
+    delay: el.dataset.index * 0.15,
+    onComplete: done,
+  })
+}
 
 // onMounted
 onMounted(() => {
@@ -238,10 +292,10 @@ onMounted(() => {
   display: inline-block;
   position: relative;
   height: 1em;
-}
 
-button {
-  position: absolute;
+  button {
+    position: absolute;
+  }
 }
 
 .slide-up-enter-active,
