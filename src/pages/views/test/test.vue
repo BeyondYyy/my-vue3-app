@@ -49,6 +49,20 @@
   <!-- 插件 -->
   <h3>{{ $t('greetings.hello') }}</h3>
   <div>{{ i18n.greetings.hello }}</div>
+
+  <!-- 内置组件 Transition -->
+  <button @click="show = !show">Toggle</button>
+  <Transition>
+    <p v-if="show">Transition</p>
+  </Transition>
+  <span style="margin-right: 20px">Click to cycle through states:</span>
+  <div class="btn-container">
+    <Transition name="slide-up">
+      <button v-if="docState === 'saved'" @click="docState = 'edited'">Edit</button>
+      <button v-else-if="docState === 'edited'" @click="docState = 'editing'">Save</button>
+      <button v-else-if="docState === 'editing'" @click="docState = 'saved'">Cancel</button>
+    </Transition>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -182,6 +196,10 @@ const color = ref('#99f')
 // 插件 在 main.ts 中定义
 const i18n = inject('i18n')
 
+// 内置组件使用
+const show = ref(true)
+const docState = ref('saved')
+
 // onMounted
 onMounted(() => {
   console.log(count.value, 'onMounted - count')
@@ -201,5 +219,43 @@ onMounted(() => {
 }
 .transfer-child {
   color: #9f9 !important;
+}
+
+// Transition
+
+/* 下面我们会解释这些 class 是做什么的 */
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.btn-container {
+  display: inline-block;
+  position: relative;
+  height: 1em;
+}
+
+button {
+  position: absolute;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 </style>
