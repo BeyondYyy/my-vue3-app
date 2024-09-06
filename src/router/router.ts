@@ -29,6 +29,15 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/pages/views/test/test.vue'),
   },
+  {
+    path: '/fabric',
+    name: 'Fabric',
+    meta: {
+      title: '测试',
+      keepAlive: true,
+    },
+    component: () => import('@/pages/fabric/index.vue'),
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),
