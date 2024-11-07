@@ -170,7 +170,7 @@ const isActive = ref(true)
 const slotData = ref(0)
 
 // 依赖注入 provide && inject
-const provideText = ref('注入的内容')
+const provideText = ref('注入的内容------')
 const provideReadonlyCount = ref(0)
 
 provide('provideMessage', { provideText, handleChangeProvideMessage, provideReadonlyCount })

@@ -47,6 +47,39 @@ export default defineComponent({
         fill: '#99f',
       })
       canvas.add(line)
+
+      const pipeline = new fabric.Line([50, 100, 200, 100], {
+        stroke: 'black',
+        strokeWidth: 5,
+      })
+      canvas.add(pipeline)
+
+      const valve = new fabric.Circle({
+        radius: 30,
+        fill: 'lightblue',
+        stroke: 'black',
+        left: 150,
+        top: 200,
+      })
+      canvas.add(valve)
+
+      const pumpBody = new fabric.Rect({
+        left: 300,
+        top: 200,
+        width: 100,
+        height: 50,
+        fill: 'gray',
+        stroke: 'black',
+      })
+      canvas.add(pumpBody)
+
+      const label = new fabric.Text('P-101', {
+        left: 150,
+        top: 300,
+        fontSize: 20,
+        fill: 'black',
+      })
+      canvas.add(label)
     })
   },
 })
